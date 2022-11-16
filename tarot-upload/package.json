@@ -1,0 +1,15 @@
+{
+  "name": "tarot-upload",
+  "version": "1.0.0",
+  "description": "Upload tarot cards to Firestore",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "author": "Gustavo Ceccon",
+  "license": "MIT",
+  "dependencies": {
+    "firebase": "^9.13.0"
+  },
+  "type": "module"
+}
