@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="210mm"
+   height="297mm"
+   viewBox="0 0 210 297"
+   version="1.1"
+   id="svg5"
+   inkscape:version="1.1.1 (3bf5ae0d25, 2021-09-20)"
+   sodipodi:docname="icon.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview7"
+     pagecolor="#505050"
+     bordercolor="#eeeeee"
+     borderopacity="1"
+     inkscape:pageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="0"
+     inkscape:document-units="mm"
+     showgrid="false"
+     inkscape:zoom="0.5"
+     inkscape:cx="206"
+     inkscape:cy="315"
+     inkscape:window-width="1920"
+     inkscape:window-height="1017"
+     inkscape:window-x="1912"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="g951" />
+  <defs
+     id="defs2" />
+  <g
+     inkscape:label="Camada 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <g
+       id="g951">
+      <rect
+         style="fill:#c7b8ff;stroke:#6000a5;stroke-width:1;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000;fill-opacity:1"
+         id="rect1270-1"
+         width="69.849998"
+         height="120.65"
+         x="13.686181"
+         y="56.760014"
+         ry="6.6039662"
+         transform="rotate(-20)"
+         inkscape:export-filename="C:\Users\gfceccon\Desktop\Fiap\mobile\tarot-app\tarot\assets\icons\splash.png"
+         inkscape:export-xdpi="96.65493"
+         inkscape:export-ydpi="96.65493" />
+      <rect
+         style="fill:#c7b8ff;stroke:#6000a5;stroke-width:1;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000;fill-opacity:1"
+         id="rect1270-0"
+         width="69.849998"
+         height="120.65"
+         x="45.670277"
+         y="48.200813"
+         ry="6.6039662"
+         transform="rotate(-10)"
+         inkscape:export-filename="C:\Users\gfceccon\Desktop\Fiap\mobile\tarot-app\tarot\assets\icons\splash.png"
+         inkscape:export-xdpi="96.65493"
+         inkscape:export-ydpi="96.65493" />
+      <rect
+         style="fill:#c7b8ff;stroke:#6000a5;stroke-width:1;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000;fill-opacity:1"
+         id="rect1270"
+         width="69.849998"
+         height="120.65"
+         x="75.677879"
+         y="34.090744"
+         ry="6.6039662"
+         inkscape:export-filename="C:\Users\gfceccon\Desktop\Fiap\mobile\tarot-app\tarot\assets\icons\splash.png"
+         inkscape:export-xdpi="96.65493"
+         inkscape:export-ydpi="96.65493" />
+      <path
+         id="path12430"
+         style="fill:#6000a5;fill-opacity:1;stroke-width:3.48237;stroke-linejoin:round;stop-color:#000000"
+         d="m 128.00117,99.534475 c -3.76524,6.601585 -11.35132,10.030065 -18.79431,8.494025 -7.443,-1.53605 -13.051965,-7.6877 -13.896067,-15.240523 -0.844086,-7.552836 3.268457,-14.790926 10.188707,-17.932212 -3.09085,3.275492 -2.80015,15.189126 2.52654,20.770314 5.00153,5.240491 18.43514,7.242651 19.97513,3.908396 z"
+         sodipodi:nodetypes="csscsc"
+         inkscape:export-filename="C:\Users\gfceccon\Desktop\Fiap\mobile\tarot-app\tarot\assets\icons\splash.png"
+         inkscape:export-xdpi="96.65493"
+         inkscape:export-ydpi="96.65493" />
+    </g>
+  </g>
+</svg>
