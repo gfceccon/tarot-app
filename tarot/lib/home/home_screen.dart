@@ -1,9 +1,10 @@
 import 'dart:convert';
+import 'dart:math';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:flutter/material.dart';
-import 'package:tarot/widgets/app_bar_widget.dart';
+import 'package:tarot/draw/draw_screen.dart';
 import 'package:tarot/widgets/card_widget.dart';
 import 'package:tarot/widgets/drawer_widget.dart';
 
@@ -36,10 +37,13 @@ class TarotCardObject {
 }
 
 class _HomeScreen extends State<HomeScreen> {
-  final List<Map<String, dynamic>> tarotDeck = [];
+  final List<Map<String, dynamic>> tarotDeckJson = [];
+  final List<TarotCardObject> tarotDeck = [];
   final List<Widget> tarotCards = [];
   final cache = GetStorage();
   var cardType = 'major';
+
+  final cardsToDraw = 3;
 
   @override
   void initState() {
@@ -49,42 +53,28 @@ class _HomeScreen extends State<HomeScreen> {
     if (tarotEncoded != null) {
       print('Cache');
       setState(() {
-        final tarotDecoded = (jsonDecode(tarotEncoded) as List<dynamic>)
-            .map((cardJson) => cardJson as Map<String, dynamic>)
-            .toList();
-        tarotDeck.addAll(tarotDecoded);
+        tarotDeckJson.clear();
+        tarotDeckJson.addAll(loadDeckFromCache(tarotEncoded));
+        mapDeck();
         filterDeck();
       });
     } else {
       print('API');
-      loadCards();
+      loadDeckFromApi().then((value) {
+        setState(() {
+          tarotDeckJson.clear();
+          tarotDeckJson.addAll(value);
+          cache.write('tarot', jsonEncode(tarotDeckJson));
+          mapDeck();
+          filterDeck();
+        });
+      });
     }
   }
 
-  void loadCards() {
-    FirebaseFirestore.instance
-        .collection('tarot')
-        .get()
-        .then((tarotCollection) {
-      setState(() {
-        tarotDeck.clear();
-        tarotDeck.addAll(
-            tarotCollection.docs.map((document) => document.data()).toList());
-        cache.write('tarot', jsonEncode(tarotDeck));
-        filterDeck();
-      });
-    });
-  }
-
-  void filterDeck() {
-    var tarotList = tarotDeck
-        .where((card) {
-          if (cardType == 'all') {
-            return true;
-          } else {
-            return card['type'] == cardType;
-          }
-        })
+  void mapDeck() {
+    tarotDeck.clear();
+    tarotDeck.addAll(tarotDeckJson
         .map((card) => TarotCardObject(
             name: card['name'],
             imageSrc: card['image_src'],
@@ -92,7 +82,29 @@ class _HomeScreen extends State<HomeScreen> {
             upright: card['upright'],
             reversed: card['reversed'],
             type: card['type']))
+        .toList());
+  }
+
+  List<Map<String, dynamic>> loadDeckFromCache(String tarotEncoded) {
+    return (jsonDecode(tarotEncoded) as List<dynamic>)
+        .map((cardJson) => cardJson as Map<String, dynamic>)
         .toList();
+  }
+
+  Future<List<Map<String, dynamic>>> loadDeckFromApi() async {
+    var tarotCollection =
+        await FirebaseFirestore.instance.collection('tarot').get();
+    return tarotCollection.docs.map((document) => document.data()).toList();
+  }
+
+  void filterDeck() {
+    var tarotList = tarotDeck.where((card) {
+      if (cardType == 'all') {
+        return true;
+      } else {
+        return card.type == cardType;
+      }
+    }).toList();
 
     tarotList.sort((a, b) => a.id.compareTo(b.id));
 
@@ -122,14 +134,14 @@ class _HomeScreen extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: TarotAppBar(),
+      appBar: AppBar(title: const Text('Tarot App')),
       drawer: TarotDrawer(changeType: changeType),
       body: Padding(
         padding: const EdgeInsets.only(top: 8.0),
         child: Column(
           children: [
             Text('${cardType.toUpperCase()} ARCANA',
-                style: Theme.of(context).textTheme.headline2),
+                style: Theme.of(context).textTheme.headlineLarge),
             Expanded(
               child: ListView.separated(
                 separatorBuilder: (context, index) => const SizedBox(
@@ -140,7 +152,7 @@ class _HomeScreen extends State<HomeScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Padding(
-                      padding: const EdgeInsets.all(20.0),
+                      padding: const EdgeInsets.all(16.0),
                       child: tarotCards[index],
                     )
                   ],
@@ -150,6 +162,14 @@ class _HomeScreen extends State<HomeScreen> {
           ],
         ),
       ),
+      floatingActionButton: FloatingActionButton(
+          child: const Icon(Icons.collections_bookmark_rounded),
+          onPressed: () {
+            tarotDeck.shuffle(Random());
+            Navigator.pushNamed(context, DrawScreen.id,
+                arguments: DrawScreenArguments(
+                    cards: tarotDeck.sublist(0, cardsToDraw)));
+          }),
     );
   }
 }

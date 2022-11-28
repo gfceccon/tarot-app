@@ -14,7 +14,7 @@ class TarotDrawer extends StatelessWidget {
         padding: EdgeInsets.zero,
         children: [
           const SizedBox(
-            height: 70,
+            height: 100,
             child: DrawerHeader(
               child: Text(
                 'Cards',
@@ -23,13 +23,6 @@ class TarotDrawer extends StatelessWidget {
                 ),
               ),
             ),
-          ),
-          ListTile(
-            leading: const Icon(Icons.logout),
-            title: const Text('Logout'),
-            onTap: () {
-              FirebaseAuth.instance.signOut().then((value) => Navigator.pushReplacementNamed(context, SplashScreen.id));
-            },
           ),
           ListTile(
             leading: const Icon(Icons.dark_mode),
@@ -64,6 +57,13 @@ class TarotDrawer extends StatelessWidget {
             title: const Text('Swords'),
             onTap: () {
               changeType('swords');
+            },
+          ),
+          ListTile(
+            leading: const Icon(Icons.logout),
+            title: const Text('Logout'),
+            onTap: () {
+              FirebaseAuth.instance.signOut().then((value) => Navigator.pushReplacementNamed(context, SplashScreen.id));
             },
           ),
         ],

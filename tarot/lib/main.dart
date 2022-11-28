@@ -38,8 +38,8 @@ class TarotApp extends StatelessWidget {
         HomeScreen.id: (context) => const HomeScreen(),
         LoginScreen.id: (context) => const LoginScreen(),
         SignupScreen.id: (context) => const SignupScreen(),
-        DrawScreen.id: (context) => const DrawScreen(),
-        CardScreen.id: (context) => const CardScreen(),
+        DrawScreen.id: (context) => DrawScreen(arguments: ModalRoute.of(context)?.settings.arguments as DrawScreenArguments),
+        CardScreen.id: (context) => CardScreen(arguments: ModalRoute.of(context)?.settings.arguments as CardScreenArguments),
         SplashScreen.id: (context) => const SplashScreen()
       },
       home: const SplashScreen(),

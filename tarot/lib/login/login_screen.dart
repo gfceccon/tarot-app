@@ -1,3 +1,4 @@
+import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:tarot/signup/signup_screen.dart';
 import 'package:tarot/widgets/login_alert.dart';
@@ -18,6 +19,7 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreen extends State<LoginScreen> {
   final loginController = TextEditingController();
   final passwordController = TextEditingController();
+  final GlobalKey<FormState> formState = GlobalKey<FormState>();
 
   void login(BuildContext context) async {
     FirebaseAuth.instance
@@ -45,29 +47,75 @@ class _LoginScreen extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: Use Form
-    return Material(
-      child: Column(
-        children: <Widget>[
-          TextField(
-            decoration: const InputDecoration(
-                hintText: 'example@example.com', prefixText: 'E-mail'),
-            controller: loginController,
-          ),
-          TextField(
-            decoration: const InputDecoration(
-              hintText: '*****',
-              prefixText: 'Password',
+    if (FirebaseAuth.instance.currentUser != null) {
+      Navigator.pushReplacementNamed(context, HomeScreen.id);
+    }
+    return Form(
+      key: formState,
+      child: Scaffold(
+        appBar: AppBar(title: const Text('Login')),
+        body: Material(
+          child: Padding(
+            padding: const EdgeInsets.all(50.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                TextFormField(
+                  controller: loginController,
+                  keyboardType: TextInputType.emailAddress,
+                  decoration: const InputDecoration(
+                    labelText: 'E-mail',
+                    hintText: 'Enter your email',
+                  ),
+                  validator: (String? value) {
+                    if (value == null || value.isEmpty) {
+                      return 'E-mail is empty';
+                    }
+                    if (!EmailValidator.validate(value)) {
+                      return 'Invalid e-mail';
+                    }
+                    return null;
+                  },
+                ),
+                TextFormField(
+                  controller: passwordController,
+                  obscureText: true,
+                  decoration: const InputDecoration(
+                    labelText: 'Password',
+                    hintText: 'Enter your password',
+                  ),
+                  validator: (String? value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Password is empty';
+                    }
+                    return null;
+                  },
+                  onFieldSubmitted: (value) {
+                    if (formState.currentState!.validate()) {
+                      login(context);
+                    }
+                  },
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 16.0),
+                  child: ElevatedButton(
+                    onPressed: () {
+                      if (formState.currentState!.validate()) {
+                        login(context);
+                      }
+                    },
+                    child: const Text('Login'),
+                  ),
+                ),
+                OutlinedButton(
+                  onPressed: () =>
+                      Navigator.pushNamed(context, SignupScreen.id),
+                  child: const Text('Signup'),
+                ),
+              ],
             ),
-            obscureText: true,
-            controller: passwordController,
           ),
-          TextButton(
-              onPressed: () => login(context), child: const Text('Login')),
-          TextButton(
-              onPressed: () => Navigator.pushNamed(context, SignupScreen.id),
-              child: const Text('Signup')),
-        ],
+        ),
       ),
     );
   }

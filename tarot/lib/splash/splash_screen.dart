@@ -12,22 +12,20 @@ class SplashScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     if (FirebaseAuth.instance.currentUser != null) {
       Future.delayed(const Duration(seconds: 2))
-          .then((value) => Navigator.pushNamed(context, HomeScreen.id));
+          .then((value) => Navigator.pushReplacementNamed(context, HomeScreen.id));
     } else {
       Future.delayed(const Duration(seconds: 2))
-          .then((value) => Navigator.pushNamed(context, LoginScreen.id));
+          .then((value) => Navigator.pushReplacementNamed(context, LoginScreen.id));
     }
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Image.asset('assets/icons/splash.png', height: 100),
-        Text(
-          'Tarot App',
-          style:
-              TextStyle(fontSize: 14.0, color: Theme.of(context).primaryColor),
-        )
-      ],
+    return Scaffold(
+      appBar: AppBar(title: const Text('Tarot App')),
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Center(child: Image.asset('assets/icons/splash.png', height: 256,)),
+        ],
+      ),
     );
   }
 }
