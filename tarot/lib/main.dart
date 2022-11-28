@@ -25,6 +25,7 @@ class TarotApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return MaterialApp(
       title: 'Tarot App',
       theme: ThemeData(
@@ -39,6 +40,7 @@ class TarotApp extends StatelessWidget {
         SignupScreen.id: (context) => const SignupScreen(),
         DrawScreen.id: (context) => const DrawScreen(),
         CardScreen.id: (context) => const CardScreen(),
+        SplashScreen.id: (context) => const SplashScreen()
       },
       home: const SplashScreen(),
     );

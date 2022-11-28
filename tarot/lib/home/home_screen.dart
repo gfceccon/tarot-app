@@ -39,7 +39,7 @@ class _HomeScreen extends State<HomeScreen> {
   final List<Map<String, dynamic>> tarotDeck = [];
   final List<Widget> tarotCards = [];
   final cache = GetStorage();
-  var cardType = 'all';
+  var cardType = 'major';
 
   @override
   void initState() {
@@ -114,6 +114,7 @@ class _HomeScreen extends State<HomeScreen> {
         .any((element) => element == type)) {
       setState(() {
         cardType = type;
+        filterDeck();
       });
     }
   }
@@ -121,15 +122,34 @@ class _HomeScreen extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: TarotAppBar(),
-        drawer: TarotDrawer(changeType: changeType),
-        body: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 100),
-          child: ListView.separated(
-            separatorBuilder: (context, index) => SizedBox(height: 100,),
-            itemCount: tarotCards.length,
-            itemBuilder: (context, index) => tarotCards[index],
-          ),
-        ));
+      appBar: TarotAppBar(),
+      drawer: TarotDrawer(changeType: changeType),
+      body: Padding(
+        padding: const EdgeInsets.only(top: 8.0),
+        child: Column(
+          children: [
+            Text('${cardType.toUpperCase()} ARCANA',
+                style: Theme.of(context).textTheme.headline2),
+            Expanded(
+              child: ListView.separated(
+                separatorBuilder: (context, index) => const SizedBox(
+                  height: 20,
+                ),
+                itemCount: tarotCards.length,
+                itemBuilder: (context, index) => Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(20.0),
+                      child: tarotCards[index],
+                    )
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }

@@ -1,4 +1,6 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:tarot/splash/splash_screen.dart';
 
 class TarotDrawer extends StatelessWidget {
   const TarotDrawer({super.key, required this.changeType});
@@ -21,6 +23,13 @@ class TarotDrawer extends StatelessWidget {
                 ),
               ),
             ),
+          ),
+          ListTile(
+            leading: const Icon(Icons.logout),
+            title: const Text('Logout'),
+            onTap: () {
+              FirebaseAuth.instance.signOut().then((value) => Navigator.pushReplacementNamed(context, SplashScreen.id));
+            },
           ),
           ListTile(
             leading: const Icon(Icons.dark_mode),
