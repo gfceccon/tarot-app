@@ -38,6 +38,8 @@ npm install
 npm start
 ```
 
+![](screenshots/app.gif)
+
 # Integrantes
 Gustavo Ferreira Ceccon
 
